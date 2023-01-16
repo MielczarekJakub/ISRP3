@@ -1,0 +1,34 @@
+pipeline {
+    agent any
+    environment {
+        WM_PROJECT = '/var/lib/jenkins/workspace/isrp03'
+        JAVA_TOOLS = '/home/student/JavaTools'
+    }
+    stages {
+        stage('Build, Package') {
+            steps {
+                sh "mvn -Dmaven.test.failure.ignore=true -f ${WM_PROJECT}/pom.xml clean package"
+                sh "mv -v ${WM_PROJECT}/target/WM-1.1.war /${WM_PROJECT}/target/WM.war" 
+            }
+        }
+        stage('Create DB connection') {
+            steps {
+                sh "java -Dderby.system.home=/home/student/JavaTools/.derbydb -jar ${JAVA_TOOLS}/db-derby-10.14.2.0-bin/lib/derbyrun.jar server start&"
+                sh 'sleep 3'
+                sh "sudo /${JAVA_TOOLS}/db-derby-10.14.2.0-bin/bin/ij connect 'jdbc:derby://localhost:1527/WM;create=true;databaseName=WM;user=WM;password=WM';"
+                sh "sudo ${JAVA_TOOLS}/db-derby-10.14.2.0-bin/bin/ij run '${WM_PROJECT}/src/main/resources/createDB.sql';" 
+                sh "sudo ${JAVA_TOOLS}/db-derby-10.14.2.0-bin/bin/ij run '${WM_PROJECT}/src/main/resources/initDB.sql';" 
+            } 
+        }
+        stage('Deploy') {
+            steps {
+                sh "sudo ${JAVA_TOOLS}/payara5.2021.8/bin/asadmin  -u admin deploy --force ${WM_PROJECT}/target/WM.war"
+            }
+        }
+        stage("Tests") {
+            steps {
+                sh "mvn -f ${WM_PROJECT}/pom.xml test"
+            }
+        }
+    }
+}

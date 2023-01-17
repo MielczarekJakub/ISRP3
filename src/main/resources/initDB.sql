@@ -1,6 +1,7 @@
 /* -
  * Projekt końcowy realizowany w ramach studiów podyplomowych Nowoczesne aplikacje biznesowe Java EE edycja 8
  */
+ connect 'jdbc:derby://localhost:1527/WM;create=true;
 
 CREATE VIEW AUTHENTICATION_VIEW AS 
 SELECT login, password, level_of_access FROM ACCOUNT WHERE active>0 AND NOT level_of_access  = 'access.level.newregistered';

@@ -6,7 +6,7 @@
 }
 
 .content{
-    background-color: #AAAAAA;
+    background-color: #AAA;
     width: 100%;
     min-height: 500px;
     height: 100%;
@@ -20,6 +20,7 @@
     border: 1px solid black;;
     text-align: center;
     padding: 10px;
+    background-color: #0f0;
 }
 
 .figure{
@@ -53,7 +54,7 @@
 
 .navbar-default .navbar-nav > li > .dropdown-menu > li > a:focus {
     color: white;
-    background-color: #425766;}
+    background-color: #425999;}
 
 .table{
     border-spacing: 1px;

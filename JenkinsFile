@@ -21,7 +21,7 @@ sh "sudo ${JDBC_FOLDER}ij ${SQLS_FOLDER}initDB.sql"
 stage('Build war Package') {
 steps {
 git branch: 'main', url: 'https://github.com/MielczarekJakub/ISRP3.git'
-sh "mvn -Dmaven.test.failure.ignore=true -f ${WM_PROJECT}/pom.xml package"
+sh "mvn -Dmaven.test.failure.ignore=true -f ${WM_FOLDER}/pom.xml package"
 sh 'mv -v ${WM_FOLDER}target/WM-1.1.war /${WM_FOLDER}target/WM.war'
 }
 }

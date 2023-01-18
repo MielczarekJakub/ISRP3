@@ -1,5 +1,5 @@
 pipeline {
-   agent any
+agent any
     environment {
         JDBC_FOLDER = "/mnt/sdb/isrp/derbyDb/db-derby-10.13.1.1-bin/bin/"
         SQLS_FOLDER = "/mnt/sdb/isrp/wm/WM/src/main/resources/"

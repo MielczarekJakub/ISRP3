@@ -19,7 +19,7 @@ sh "sudo ${JDBC_FOLDER}ij ${SQLS_FOLDER}initDB.sql"
 }
 }
 
-stage('Git clone') {
+stage('Git clon') {
 steps {
 git branch: 'main', url: 'https://github.com/MielczarekJakub/ISRP3.git'
 sh 'sudo rsync -a --delete /root/.jenkins/workspace/test/ /mnt/sdb/isrp/wm/WM/'

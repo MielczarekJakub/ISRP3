@@ -1,0 +1,37 @@
+WebDriver driver;
+
+    @Parameters({"browser"})
+    @BeforeClass
+    public void test(String browser) {
+
+        if (browser.equals("chrome")) {
+
+            WebDriverManager.chromedriver().setup();
+            driver = new ChromeDriver();
+
+//
+//            System.setProperty("webdriver.chrome.driver",
+//                    "C:\STUDIA\V_SEMESTR\ISRP\ZAD3\chromedriver\chromedriver.exe");
+////            WebDriverManager.chromedriver().setup();
+//            driver = new ChromeDriver();
+////                    "C:\STUDIA\V_SEMESTR\ISRP\ZAD3\egdedriver\msedgedriver.exe");
+//            System.setProperty("selenide.browser", "chrome");
+//            Configuration.browser = "chrome";
+        } else if (browser.equals("firefox")) {
+//            Configuration.browser = "firefox";
+        } else if (browser.equals("edge")) {
+
+            WebDriverManager.firefoxdriver().setup();
+            driver = new FirefoxDriver();
+
+//            System.setProperty("webdriver.edge.driver",
+////                "C:\STUDIA\V_SEMESTR\ISRP\ZAD3\chromedriver\chromedriver.exe");
+//                    "C:\STUDIA\V_SEMESTR\ISRP\ZAD3\egdedriver\msedgedriver.exe");
+//            driver = new EdgeDriver();
+////            WebDriverManager.edgedriver().setup();
+//            System.setProperty("selenide.browser", "edge");
+//            Configuration.browser = "edge";
+        } else {
+            throw new RuntimeException("Browser is not supported");
+        }
+    }

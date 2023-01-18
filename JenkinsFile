@@ -1,34 +1,34 @@
 pipeline {
-    agent any
-    environment {
-        WM_PROJECT = '/var/lib/jenkins/workspace/isrp03'
-        JAVA_TOOLS = '/home/student/JavaTools'
-    }
-    stages {
-        stage('Build, Package') {
-            steps {
-                sh "mvn -Dmaven.test.failure.ignore=true -f ${WM_PROJECT}/pom.xml clean package"
-                sh "mv -v ${WM_PROJECT}/target/WM-1.1.war /${WM_PROJECT}/target/WM.war" 
-            }
-        }
-        stage('Create DB connection') {
-            steps {
-                sh "java -Dderby.system.home=/home/student/JavaTools/.derbydb -jar ${JAVA_TOOLS}/db-derby-10.14.2.0-bin/lib/derbyrun.jar server start&"
-                sh 'sleep 3'
-                sh "sudo /${JAVA_TOOLS}/db-derby-10.14.2.0-bin/bin/ij connect 'jdbc:derby://localhost:1527/WM;create=true;databaseName=WM;user=WM;password=WM';"
-                sh "sudo ${JAVA_TOOLS}/db-derby-10.14.2.0-bin/bin/ij run '${WM_PROJECT}/src/main/resources/createDB.sql';" 
-                sh "sudo ${JAVA_TOOLS}/db-derby-10.14.2.0-bin/bin/ij run '${WM_PROJECT}/src/main/resources/initDB.sql';" 
-            } 
-        }
-        stage('Deploy') {
-            steps {
-                sh "sudo ${JAVA_TOOLS}/payara5.2021.8/bin/asadmin  -u admin deploy --force ${WM_PROJECT}/target/WM.war"
-            }
-        }
-        stage("Tests") {
-            steps {
-                sh "mvn -f ${WM_PROJECT}/pom.xml test"
-            }
-        }
-    }
+    agent any
+    environment {
+        JDBC_FOLDER = "/mnt/sdb/isrp/derbyDb/db-derby-10.13.1.1-bin/bin/"
+        SQLS_FOLDER = "/mnt/sdb/isrp/wm/WM/src/main/resources/"
+        WM_FOLDER = "/mnt/sdb/isrp/wm/WM/"
+        PAYARA_BIN = "/mnt/sdb/isrp/payara5/payara-5.2022.5/payara5/bin/"
+    }
+    stages {
+        stage('Create DB connection') {
+            steps {
+                withEnv(['JENKINS_NODE_COOKIE=dontkill']) {
+                    sh "sudo ${JDBC_FOLDER}startNetworkServer &"
+                }
+                sh "sleep 3"
+                sh "sudo ${JDBC_FOLDER}ij ${JDBC_FOLDER}configureDB.sql"
+                sh "sudo ${JDBC_FOLDER}ij ${SQLS_FOLDER}createDB.sql"
+                sh "sudo ${JDBC_FOLDER}ij ${SQLS_FOLDER}initDB.sql"
+            }
+        }
+        stage('Build war Package') {
+            steps {
+                sh 'mvn -Dmaven.test.failure.ignore=true -f ${WM_FOLDER}pom.xml clean package'
+                sh 'mv -v ${WM_FOLDER}target/WM-1.1.war /${WM_FOLDER}target/WM.war'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh "sudo ${PAYARA_BIN}asadmin  -u admin undeploy WM"
+                sh "sudo ${PAYARA_BIN}asadmin  -u admin deploy --force ${WM_FOLDER}target/WM.war"
+            }
+        }
+    }
 }

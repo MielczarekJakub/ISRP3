@@ -3,7 +3,7 @@ agent any
 environment {
 JDBC_FOLDER = "/mnt/sdb/isrp/derbyDb/db-derby-10.13.1.1-bin/bin/"
 SQLS_FOLDER = "/mnt/sdb/isrp/wm/WM/src/main/resources/"
-WM_FOLDER = "/root/.jenkins/workspace/test/"
+WM_FOLDER = "/mnt/sdb/isrp/wm/WM/"
 PAYARA_BIN = "/mnt/sdb/isrp/payara5/payara-5.2022.5/payara5/bin/"
 }
 stages {
@@ -21,6 +21,7 @@ sh "sudo ${JDBC_FOLDER}ij ${SQLS_FOLDER}initDB.sql"
 stage('Build war Package') {
 steps {
 git branch: 'main', url: 'https://github.com/MielczarekJakub/ISRP3.git'
+sh 'mv /root/.jenkins/workspace/test/ /mnt/sdb/isrp/wm/WM/'
 sh "mvn -Dmaven.test.failure.ignore=true -f ${WM_FOLDER}pom.xml package"
 sh 'mv -v ${WM_FOLDER}target/WM-1.1.war /${WM_FOLDER}target/WM.war'
 }

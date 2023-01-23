@@ -6,13 +6,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.Test;
 
 import java.time.Duration;
 
 public class ChangePasswordTest extends BaseTest {
     protected String newPassword = "noweH@s!0";
-    @ParameterizedTest
+    
     @ValueSource(classes={ChromeDriver.class, FirefoxDriver.class})
+    @Test
     public void basicTest(Class<? extends WebDriver> webDriverClass){
         if (webDriverClass.equals(ChromeDriver.class)) {
             driver = new ChromeDriver(chromeOptions);

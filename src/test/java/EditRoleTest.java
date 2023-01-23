@@ -18,14 +18,8 @@ public class EditRoleTest extends BaseTest {
     protected String role;
 
     @Test
-    public void editRoleTest(Class<? extends WebDriver> webDriverClass) {
-        if (webDriverClass.equals(ChromeDriver.class)) {
-            driver = new ChromeDriver(chromeOptions);
-            role = "Magazyn";
-        } else {
-            driver = new FirefoxDriver(firefoxOptions);
-            role = "Biuro";
-        }
+    public void editRoleTest() {
+
 
 
         driver.get("https://localhost:8181/faces/main/index.xhtml");

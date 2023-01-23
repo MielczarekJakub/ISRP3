@@ -1,25 +1,18 @@
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.Test;
-
 import java.time.Duration;
 
 public class ChangePasswordTest extends BaseTest {
     protected String newPassword = "noweH@s!0";
 
     @Test
-    public void basicTest(Class<? extends WebDriver> webDriverClass){
-        if (webDriverClass.equals(ChromeDriver.class)) {
-            driver = new ChromeDriver(chromeOptions);
-        } else {
-            driver = new FirefoxDriver(firefoxOptions);
-        }
+    public void basicTest(){
+
 
         driver.get("https://localhost:8181/faces/main/index.xhtml");
         // Log in

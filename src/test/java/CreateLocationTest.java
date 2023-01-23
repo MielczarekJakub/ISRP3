@@ -19,14 +19,8 @@ public class CreateLocationTest extends BaseTest {
 
 
     @Test
-    public void basicTest(Class<? extends WebDriver> webDriverClass) {
-        if (webDriverClass.equals(ChromeDriver.class)) {
-            driver = new ChromeDriver(chromeOptions);
-            locationPattern = "CH" + locationName;
-        } else {
-            driver = new FirefoxDriver(firefoxOptions);
-            locationPattern = "ED" + locationName;
-        }
+    public void basicTest() {
+
 
 
         driver.get("https://localhost:8181/faces/main/index.xhtml");

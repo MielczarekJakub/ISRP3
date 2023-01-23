@@ -1,20 +1,13 @@
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 
 public class EditClientNameTest extends BaseTest {
 
     @Test
-    public void test(Class<? extends WebDriver> webDriverClass)  {
-        if (webDriverClass.equals(ChromeDriver.class)) {
-            driver = new ChromeDriver(chromeOptions);
-        } else {
-            driver = new FirefoxDriver(firefoxOptions);
-        }
+    public void test()  {
+
 
         driver.get("https://localhost:8181/faces/main/index.xhtml");
 

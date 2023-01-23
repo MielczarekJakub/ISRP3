@@ -31,7 +31,7 @@ public abstract class BaseTest {
         chromeOptions.addArguments("--ignore-certificate-errors");
 
         WebDriverManager.chromedriver().setup();
-        WebDriverManager.edgedriver().setup();
+        WebDriverManager.firefoxdriver().setup();
 
     }
 

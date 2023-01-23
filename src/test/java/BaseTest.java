@@ -13,8 +13,6 @@ public abstract class BaseTest {
 
     protected WebDriver driver;
 
-    protected String baseUrl = "https://localhost:8181/faces/";
-
     protected static ChromeOptions chromeOptions;
     protected static FirefoxOptions firefoxOptions;
 

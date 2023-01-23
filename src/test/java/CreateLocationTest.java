@@ -2,11 +2,10 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.Test;
 
 import java.time.Duration;
 
@@ -19,8 +18,7 @@ public class CreateLocationTest extends BaseTest {
     protected String locationPattern;
 
 
-    @ParameterizedTest
-    @ValueSource(classes = {ChromeDriver.class, FirefoxDriver.class})
+    @Test
     public void basicTest(Class<? extends WebDriver> webDriverClass) {
         if (webDriverClass.equals(ChromeDriver.class)) {
             driver = new ChromeDriver(chromeOptions);
@@ -31,7 +29,7 @@ public class CreateLocationTest extends BaseTest {
         }
 
 
-        driver.get(baseUrl + "common/signIn.xhtml");
+        driver.get("https://localhost:8181/faces/main/index.xhtml");
         // Log in
         driver.findElement(By.cssSelector("input[name='j_username']")).sendKeys(username1);
         driver.findElement(By.cssSelector("input[name='j_password']")).sendKeys(basicPassword);

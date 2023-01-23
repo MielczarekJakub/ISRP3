@@ -1,23 +1,25 @@
-WebDriver driver;
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd%22%3E
+<suite name="Parallel" thread-count="4" parallel="tests">
+<test name="SingleTestChrome">
+<!--        <parameter name="config" value="parallel.conf.json"/>-->
+<parameter name="browser" value="chrome"/>
+<classes>
+<!--            add path to test class-->
 
-    @Parameters({"browser"})
-    @BeforeClass
-    public void test(String browser) {
+<class name="isrp.SeleniumTest"/>
+</classes>
+</test>
 
-        if (browser.equals("chrome")) {
+<test name="SingleTestFirefox">
+<!--        <parameter name="config" value="parallel.conf.json"/>-->
+<parameter name="browser" value="firefox"/>
+<classes>
+<!--            add path to test class-->
 
-            WebDriverManager.chromedriver().setup();
-            driver = new ChromeDriver();
+<class name="isrp.SeleniumTest"/>
+<!--            <class name="com.browserstack.SingleTest"/>-->
+</classes>
+</test>
+</suite>
 
-
-        } else if (browser.equals("firefox")) {
-        } else if (browser.equals("edge")) {
-
-            WebDriverManager.firefoxdriver().setup();
-            driver = new FirefoxDriver();
-
-
-        } else {
-            throw new RuntimeException("Browser is not supported");
-        }
-    }

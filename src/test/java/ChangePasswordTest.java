@@ -12,8 +12,7 @@ import java.time.Duration;
 
 public class ChangePasswordTest extends BaseTest {
     protected String newPassword = "noweH@s!0";
-    
-    @ValueSource(classes={ChromeDriver.class, FirefoxDriver.class})
+
     @Test
     public void basicTest(Class<? extends WebDriver> webDriverClass){
         if (webDriverClass.equals(ChromeDriver.class)) {
@@ -22,7 +21,7 @@ public class ChangePasswordTest extends BaseTest {
             driver = new FirefoxDriver(firefoxOptions);
         }
 
-        driver.get(baseUrl + "common/signIn.xhtml");
+        driver.get("https://localhost:8181/faces/main/index.xhtml");
         // Log in
         driver.findElement(By.cssSelector("input[name='j_username']")).sendKeys(username1);
         driver.findElement(By.cssSelector("input[name='j_password']")).sendKeys(basicPassword);
@@ -47,7 +46,7 @@ public class ChangePasswordTest extends BaseTest {
         driver.findElement(By.cssSelector("input[value='Wyloguj']")).click();
 
         //próba logowania po zmianie hasła
-        driver.get(baseUrl + "common/signIn.xhtml");
+        driver.get("https://localhost:8181/faces/main/index.xhtml");
         driver.findElement(By.cssSelector("input[name='j_username']")).sendKeys(username1);
         driver.findElement(By.cssSelector("input[name='j_password']")).sendKeys(newPassword);
 

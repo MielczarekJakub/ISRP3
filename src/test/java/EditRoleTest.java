@@ -1,12 +1,13 @@
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
+
 
 import java.time.Duration;
 
@@ -16,13 +17,13 @@ public class EditRoleTest extends BaseTest {
     protected String role;
 
     @ParameterizedTest
-    @ValueSource(classes = {ChromeDriver.class, EdgeDriver.class})
+    @ValueSource(classes = {ChromeDriver.class, FirefoxDriver.class})
     public void editRoleTest(Class<? extends WebDriver> webDriverClass) {
         if (webDriverClass.equals(ChromeDriver.class)) {
             driver = new ChromeDriver(chromeOptions);
             role = "Magazyn";
         } else {
-            driver = new EdgeDriver(edgeOptions);
+            driver = new FirefoxDriver(firefoxOptions);
             role = "Biuro";
         }
 
@@ -30,7 +31,7 @@ public class EditRoleTest extends BaseTest {
         driver.get(baseUrl + "common/signIn.xhtml");
         // Log in
         driver.findElement(By.cssSelector("input[name='j_username']")).sendKeys(username2);
-        driver.findElement(By.cssSelector("input[name='j_password']")).sendKeys(password1);
+        driver.findElement(By.cssSelector("input[name='j_password']")).sendKeys(basicPassword);
         driver.findElement(By.cssSelector("input[value='Zaloguj']")).click();
 
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));

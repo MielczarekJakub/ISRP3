@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 
-public abstract class BeforeAfterTests {
+public abstract class BaseTest {
     protected String username1 = "JDoe";
     protected String username2 = "JDoe2";
 

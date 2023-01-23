@@ -11,7 +11,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.time.Duration;
 
 
-public class CreateKicatuinTest extends BaseTest {
+public class CreateLocationTest extends BaseTest {
 
     // LOCATION PATTERN XX-00-00-00
     protected String locationName = "-01-02-03";

@@ -38,5 +38,10 @@ sh "sudo ${PAYARA_BIN}asadmin  -u admin undeploy WM"
 sh "sudo ${PAYARA_BIN}asadmin  -u admin deploy --force ${WM_FOLDER}target/WM.war"
 }
 }
+stage('Tests') {
+steps {
+sh "mvn -f ${WM_PROJECT}/pom.xml test"
+}
+}
 }
 }

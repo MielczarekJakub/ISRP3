@@ -3,31 +3,34 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
-
-public abstract class BaseTest {
-    protected WebDriver driver;
-    protected String baseUrl = "https://localhost:8181/faces/";
+public abstract class BeforeAfterTests {
     protected String username1 = "JDoe";
-    protected String password1 = "P@ssw0rd";
-    protected String username2 = "DMitchell";
+    protected String username2 = "JDoe2";
+
+    protected String basicPassword = "P@ssw0rd";
+
+    protected WebDriver driver;
+
+    protected String baseUrl = "https://localhost:8181/faces/";
+
     protected static ChromeOptions chromeOptions;
-    protected static EdgeOptions edgeOptions;
+    protected static FirefoxOptions firefoxOptions;
 
 
     @BeforeAll
     static void setupClass() {
 
+        firefoxOptions = new FirefoxOptions();
+        firefoxOptions.addArguments("--allow-insecure-localhost");
+        firefoxOptions.addArguments("--ignore-ssl-errors=yes");
+        firefoxOptions.addArguments("--ignore-certificate-errors");
+
         chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--allow-insecure-localhost");
         chromeOptions.addArguments("--ignore-ssl-errors=yes");
         chromeOptions.addArguments("--ignore-certificate-errors");
-
-        edgeOptions = new EdgeOptions();
-        edgeOptions.addArguments("--allow-insecure-localhost");
-        edgeOptions.addArguments("--ignore-ssl-errors=yes");
-        edgeOptions.addArguments("--ignore-certificate-errors");
 
         WebDriverManager.chromedriver().setup();
         WebDriverManager.edgedriver().setup();
@@ -39,5 +42,4 @@ public abstract class BaseTest {
         driver.close();
         driver.quit();
     }
-
 }

@@ -43,8 +43,8 @@ public class CreateLocationTest {
 
 
         } else {
-            WebDriverManager.firefoxdriver().setup();
-            driver = new FirefoxDriver();
+            WebDriverManager.chromedriver().setup();
+            driver = new ChromeDriver();
             //throw new RuntimeException("Browser is not supported");
         }
     }

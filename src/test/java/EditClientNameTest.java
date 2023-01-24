@@ -1,9 +1,45 @@
-import org.junit.jupiter.api.Test;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
 
-public class EditClientNameTest extends BaseTest {
+public class EditClientNameTest {
+
+    protected String newPassword = "noweH@s!0";
+    protected String username1 = "JDoe";
+    protected String username2 = "JDoe2";
+    protected String basicPassword = "P@ssw0rd";
+    WebDriver driver;
+
+    @Parameters({"browser"})
+    @BeforeClass
+    public void test(String browser) {
+
+        if (browser.equals("chrome")) {
+
+            WebDriverManager.chromedriver().setup();
+            driver = new ChromeDriver();
+
+        } else if (browser.equals("firefox")) {
+
+            WebDriverManager.firefoxdriver().setup();
+            driver = new FirefoxDriver();
+
+        } else if (browser.equals("edge")) {
+
+
+
+        } else {
+            throw new RuntimeException("Browser is not supported");
+        }
+    }
 
     @Test
     public void test()  {
@@ -57,7 +93,6 @@ public class EditClientNameTest extends BaseTest {
 
         saveChangeName.click();
 
-//        find element by text on screen
 
         try {
             WebElement text = driver.findElement(By.xpath("//td[contains(text(),'Maryla')]"));
@@ -67,11 +102,13 @@ public class EditClientNameTest extends BaseTest {
             Assert.fail("Element not found");
         }
 
-
-//        Assert.assertEquals("Maryla", driver.findElement(By.id("EditForm:name")).getText());
-//        assert.equals("Maryla", inputName.getText());
         WebElement logout = driver.findElement(By.xpath("//a[@href='../common/logout.xhtml']"));
         logout.click();
 
+    }
+
+    @AfterClass
+    public void tearDown() {
+        driver.quit();
     }
 }

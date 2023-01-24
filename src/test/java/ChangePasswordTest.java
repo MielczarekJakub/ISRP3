@@ -1,14 +1,47 @@
-import org.junit.jupiter.api.Assertions;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import java.time.Duration;
+import org.testng.Assert;
 
-public class ChangePasswordTest extends BaseTest {
+public class ChangePasswordTest {
     protected String newPassword = "noweH@s!0";
+    protected String username1 = "JDoe";
+    protected String username2 = "JDoe2";
+    protected String basicPassword = "P@ssw0rd";
+
+
+    WebDriver driver;
+
+    @Parameters({"browser"})
+    @BeforeClass
+    public void test(String browser) {
+
+        if (browser.equals("chrome")) {
+
+            WebDriverManager.chromedriver().setup();
+            driver = new ChromeDriver();
+
+        } else if (browser.equals("firefox")) {
+
+            WebDriverManager.firefoxdriver().setup();
+            driver = new FirefoxDriver();
+
+        } else if (browser.equals("edge")) {
+
+
+
+        } else {
+            throw new RuntimeException("Browser is not supported");
+        }
+    }
 
     @Test
     public void basicTest(){
@@ -48,7 +81,7 @@ public class ChangePasswordTest extends BaseTest {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 
         WebElement element = driver.findElement(By.xpath("//h4[contains(normalize-space(), 'JDoe')]"));
-        Assertions.assertNotNull(element);
+        Assert.assertNotNull(element);
 
         //cofnięcie zmiany hasla
         driver.findElement(By.xpath("//a[contains(normalize-space(), 'Ustawienia')]")).click();
@@ -61,5 +94,10 @@ public class ChangePasswordTest extends BaseTest {
 
         driver.findElement(By.xpath("//a[contains(normalize-space(), 'Wylogowanie')]")).click();
         driver.findElement(By.cssSelector("input[value='Wyloguj']")).click();
+    }
+
+    @AfterClass
+    public void tearDown() {
+        driver.quit();
     }
 }

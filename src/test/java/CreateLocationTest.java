@@ -1,21 +1,53 @@
-import org.junit.jupiter.api.Assertions;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
 
 
-public class CreateLocationTest extends BaseTest {
+public class CreateLocationTest {
 
     // LOCATION PATTERN XX-00-00-00
     protected String locationName = "-01-02-03";
     protected String locationType = "JEDNA CZWARTA";
     protected String locationPattern;
+    protected String username1 = "JDoe";
+    protected String username2 = "JDoe2";
+    WebDriver driver;
+    protected String basicPassword = "P@ssw0rd";
+
+
+    @Parameters({"browser"})
+    @BeforeClass
+    public void test(String browser) {
+
+        if (browser.equals("chrome")) {
+
+            WebDriverManager.chromedriver().setup();
+            driver = new ChromeDriver();
+
+        } else if (browser.equals("firefox")) {
+
+            WebDriverManager.firefoxdriver().setup();
+            driver = new FirefoxDriver();
+
+        } else if (browser.equals("edge")) {
+
+
+
+        } else {
+            throw new RuntimeException("Browser is not supported");
+        }
+    }
 
 
     @Test
@@ -50,9 +82,13 @@ public class CreateLocationTest extends BaseTest {
 
         // czy lokacja na liscie
         WebElement element = driver.findElement(By.xpath("//td[contains(normalize-space(), "  + locationPattern + ")]"));
-        Assertions.assertNotNull(element);
-
+        Assert.assertNotNull(element);
         // wylogowanie
         driver.findElement(By.xpath("//a[contains(normalize-space(), 'Wylogowanie')]")).click();
+    }
+
+    @AfterClass
+    public void tearDown() {
+        driver.quit();
     }
 }

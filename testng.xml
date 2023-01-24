@@ -1,22 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Parallel"  parallel="tests" thread-count="4">
-    <test name="TestChrome">
+    <test name="TestChrome1">
     <parameter name="browser" value="chrome"/>
     <classes>
     <class name="CreateLocationTest"/>
+    </classes>
+    </test>
+    
+    <test name="TestChrome2">
+    <parameter name="browser" value="chrome"/>
+    <classes>
     <class name="ChangePasswordTest"/>
+    </classes>
+    </test>
+    
+    <test name="TestChrome3">
+    <parameter name="browser" value="chrome"/>
+    <classes>
     <class name="EditClientNameTest"/>
+    </classes>
+    </test>
+    
+    <test name="TestChrome4">
+    <parameter name="browser" value="chrome"/>
+    <classes>
     <class name="EditRoleTest"/>
     </classes>
     </test>
+    
+    
 
-    <test name="TestFirefox">
+    <test name="TestFirefox1">
     <parameter name="browser" value="firefox"/>
     <classes>
     <class name="CreateLocationTest"/>
+    </classes>
+    </test>
+    
+    <test name="TestFirefox2">
+    <parameter name="browser" value="firefox"/>
+    <classes>
     <class name="ChangePasswordTest"/>
+    </classes>
+    </test>
+    
+    <test name="TestFirefox3">
+    <parameter name="browser" value="firefox"/>
+    <classes>
     <class name="EditClientNameTest"/>
+    </classes>
+    </test>
+    
+    <test name="TestFirefox4">
+    <parameter name="browser" value="firefox"/>
+    <classes>
     <class name="EditRoleTest"/>
     </classes>
     </test>

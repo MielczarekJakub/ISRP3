@@ -6,10 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Parameters;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.time.Duration;
 
@@ -28,7 +25,7 @@ public class CreateLocationTest {
 
     @Parameters("browser")
     @BeforeClass
-    public void test(String browser) {
+    public void test(String @Optional("browser") browser) {
 
         if (browser.equals("chrome")) {
 

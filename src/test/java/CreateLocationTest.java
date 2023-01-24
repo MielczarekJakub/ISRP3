@@ -43,7 +43,7 @@ public class CreateLocationTest {
 
 
         } else {
-            System.setProperty("webdriver.gecko.driver.driver", "/usr/bin/geckodriver.exe");
+            System.setProperty("webdriver.firefox.marionette", "/usr/bin/geckodriver.exe");
             WebDriverManager.firefoxdriver().setup();
             driver = new FirefoxDriver();
             //throw new RuntimeException("Browser is not supported");

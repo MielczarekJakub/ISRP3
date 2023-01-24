@@ -40,7 +40,7 @@ sh "sudo ${PAYARA_BIN}asadmin  -u admin deploy --force ${WM_FOLDER}target/WM.war
 }
 stage('Tests') {
 steps {
-sh "mvn clean test -DsuiteXmlFile=${WM_FOLDER}/testng.xml"
+sh "mvn test -DsuiteXmlFile=${WM_FOLDER}/testng.xml"
 }
 }
 }

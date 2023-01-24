@@ -26,7 +26,7 @@ public class CreateLocationTest {
     protected String basicPassword = "P@ssw0rd";
 
 
-    @Parameters({"browser"})
+    @Parameters("browser")
     @BeforeClass
     public void test(String browser) {
 

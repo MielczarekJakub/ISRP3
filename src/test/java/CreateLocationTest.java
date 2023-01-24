@@ -25,7 +25,7 @@ public class CreateLocationTest {
 
     @Parameters("browser")
     @BeforeClass
-    public void test(String @Optional("browser") browser) {
+    public void test(@Optional("browser") String browser) {
 
         if (browser.equals("chrome")) {
 

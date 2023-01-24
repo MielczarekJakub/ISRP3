@@ -1,21 +1,49 @@
-import org.junit.jupiter.api.Assertions;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-
-
 import java.time.Duration;
 
 
-public class EditRoleTest extends BaseTest {
+public class EditRoleTest {
 
     protected String role;
+    protected String username1 = "JDoe";
+    protected String username2 = "JDoe2";
+    WebDriver driver;
+    protected String basicPassword = "P@ssw0rd";
+
+
+    @Parameters({"browser"})
+    @BeforeClass
+    public void test(String browser) {
+
+        if (browser.equals("chrome")) {
+
+            WebDriverManager.chromedriver().setup();
+            driver = new ChromeDriver();
+
+        } else if (browser.equals("firefox")) {
+
+            WebDriverManager.firefoxdriver().setup();
+            driver = new FirefoxDriver();
+
+        } else if (browser.equals("edge")) {
+
+
+
+        } else {
+            throw new RuntimeException("Browser is not supported");
+        }
+    }
 
     @Test
     public void editRoleTest() {
@@ -38,7 +66,7 @@ public class EditRoleTest extends BaseTest {
 
         // edit role
         WebElement row = driver.findElement(By.xpath("//tr[contains(normalize-space(), 'NGierczak')]"));
-        Assertions.assertNotNull(row);
+        Assert.assertNotNull(row);
         WebElement selectElement = row.findElement(By.cssSelector("select"));
         Select select = new Select(selectElement);
         select.selectByVisibleText(role);
@@ -47,9 +75,14 @@ public class EditRoleTest extends BaseTest {
         // check if role is on the list
         row = driver.findElement(By.xpath("//tr[contains(normalize-space(), 'NGierczak')]"));
         WebElement element = row.findElement(By.cssSelector("option[selected='selected']"));
-        Assertions.assertEquals(role, element.getText());
+        Assert.assertEquals(role, element.getText());
 
         // logout
         driver.findElement(By.xpath("//a[contains(normalize-space(), 'Wylogowanie')]")).click();
+    }
+
+    @AfterClass
+    public void tearDown() {
+        driver.quit();
     }
 }

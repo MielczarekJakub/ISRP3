@@ -4,6 +4,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.By;
 import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
@@ -22,6 +23,7 @@ public class CreateLocationTest {
     protected String username2 = "JDoe2";
     WebDriver driver;
     protected String basicPassword = "P@ssw0rd";
+    protected ChromeOptions chromeOptions;
 
 
     @Parameters("browser")
@@ -44,6 +46,10 @@ public class CreateLocationTest {
 
         } else {
             //System.setProperty("webdriver.firefox.marionette", "/usr/bin/geckodriver.exe");
+            chromeOptions = new ChromeOptions();
+            chromeOptions.addArguments("--allow-insecure-localhost");
+            chromeOptions.addArguments("--ignore-ssl-errors=yes");
+            chromeOptions.addArguments("--ignore-certificate-errors");
             WebDriverManager.chromedriver().setup();
             driver = new ChromeDriver();
             //throw new RuntimeException("Browser is not supported");

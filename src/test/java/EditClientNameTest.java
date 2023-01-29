@@ -232,12 +232,6 @@ public class EditClientNameTest {
 
 
 
-    @AfterClass
-
-    public void tearDown() {
-
-        driver.quit();
-
-    }
+    
 
 }
